@@ -18,6 +18,38 @@
     </style>
 
     <script type="text/javascript">
+        function chat(){
+            var message = document.form1.message.value;
+            var messageHistory = document.form1.messageResult.value;
+            var user = document.form1.user.value;
+            var chat = {
+                message : message,
+                messageHistory : messageHistory,
+                user : user
+            };
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                contentType: "application/json",
+                url: "control",
+                data: JSON.stringify(chat),
+                success: [
+                    function(result) {
+                        console.log(result);
+                        var reply = document.getElementById("messageResult");
+                        reply.value = result;
+                        document.form1.messageResult.focus();
+                        document.form1.message.focus();
+                    }
+                ],
+                error: [
+                    function(request,status,error){
+                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    }]
+
+            });
+            document.form1.message.value = "";
+        }
     </script>
 </head>
 
