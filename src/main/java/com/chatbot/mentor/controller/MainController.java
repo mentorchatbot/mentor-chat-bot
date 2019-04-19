@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author junho.park
  */
 @Controller
-public class MentorController {
+public class MainController {
     @GetMapping("/")
-    public String hello() {
-        return "hello";
+    public String initMain() {
+        return "index";
     }
 }
