@@ -4,25 +4,25 @@ package com.chatbot.mentor.domain;
  * @author junho.park
  */
 public class ChatMessage {
-    private String message;
+    private String userMessage;
     private String messageHistory;
     private String user;
 
     public ChatMessage() {
     }
 
-    public ChatMessage(String message, String messageHistory, String user) {
-        this.message = message;
+    public ChatMessage(String userMessage, String messageHistory, String user) {
+        this.userMessage = userMessage;
         this.messageHistory = messageHistory;
         this.user = user;
     }
 
-    public String getMessage() {
-        return message;
+    public String getUserMessage() {
+        return userMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setUserMessage(String userMessage) {
+        this.userMessage = userMessage;
     }
 
     public String getMessageHistory() {
