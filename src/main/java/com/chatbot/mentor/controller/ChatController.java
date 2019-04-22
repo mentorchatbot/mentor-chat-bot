@@ -4,7 +4,6 @@ import com.chatbot.mentor.domain.ChatMessage;
 import com.chatbot.mentor.dto.ChatMessageResponseDto;
 import com.chatbot.mentor.service.ChatService;
 import com.chatbot.mentor.service.SocketService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ChatController {
-    @Autowired
-    private ChatService chatService;
+    private final ChatService chatService;
+    private final SocketService socketService;
 
-    @Autowired
-    private SocketService socketService;
+    public ChatController(ChatService chatService, SocketService socketService) {
+        this.chatService = chatService;
+        this.socketService = socketService;
+    }
 
     @PostMapping("/chat")
     public ResponseEntity<ChatMessageResponseDto> chatMessage(@RequestBody ChatMessage chat) {
