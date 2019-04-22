@@ -19,36 +19,36 @@
 
     <script type="text/javascript">
         function chat(){
-            var message = document.form1.message.value;
+            var userMessage = document.form1.userMessage.value;
             var messageHistory = document.form1.messageResult.value;
             var user = document.form1.user.value;
             var chat = {
-                message : message,
+                userMessage : userMessage,
                 messageHistory : messageHistory,
                 user : user
             };
             $.ajax({
                 type: "POST",
-                dataType: "text",
+                dataType: "json",
                 contentType: "application/json",
-                url: "control",
+                url: "chat",
                 data: JSON.stringify(chat),
                 success: [
                     function(result) {
-                        console.log(result);
+                        var resultMessage = result.messageHistory + result.userMessage + result.chatBotMessage;
                         var reply = document.getElementById("messageResult");
-                        reply.value = result;
+                        reply.value = resultMessage;
                         document.form1.messageResult.focus();
-                        document.form1.message.focus();
+                        document.form1.userMessage.focus();
                     }
                 ],
                 error: [
-                    function(request,status,error){
-                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    function(request){
+                        alert("userMessage:"+request.responseText);
                     }]
 
             });
-            document.form1.message.value = "";
+            document.form1.userMessage.value = "";
         }
     </script>
 </head>
@@ -74,7 +74,7 @@
             <tr>
                 <td class="inputPic">Message : </td>
                 <td class="inputPic">
-                    <input type="text" class="inputPic composerInput" id="composerInput1" name="message" data-sigil="textarea"><br>
+                    <input type="text" class="inputPic composerInput" id="composerInput1" name="userMessage" data-sigil="textarea"><br>
                 </td>
             </tr>
             <tr>
