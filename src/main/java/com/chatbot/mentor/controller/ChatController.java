@@ -1,5 +1,6 @@
 package com.chatbot.mentor.controller;
 
+import com.chatbot.mentor.domain.BotMessage;
 import com.chatbot.mentor.domain.ChatMessage;
 import com.chatbot.mentor.dto.ChatMessageResponseDto;
 import com.chatbot.mentor.service.ChatService;
@@ -29,8 +30,12 @@ public class ChatController {
         String messageHistory = chat.getMessageHistory();
         String userName = chat.getUser();
 
-        String botMessage = socketService.getBotMessage(userMessage, userName);
-        ChatMessageResponseDto chatMessageResponseDto = chatService.getChatMessageResponse(userMessage, botMessage, messageHistory, userName);
+        BotMessage botMessage = socketService.getBotMessage(userMessage, userName);
+        ChatMessageResponseDto chatMessageResponseDto = chatService.getChatMessageResponse(userMessage, botMessage.getBotMessage(), messageHistory, userName);
+
+        if (botMessage.isExternalApi()) {
+            chatMessageResponseDto.setJobCode(botMessage.getJobCode());
+        }
 
         return new ResponseEntity<>(chatMessageResponseDto, HttpStatus.OK);
     }
