@@ -38,6 +38,11 @@
                         var resultMessage = result.messageHistory + result.userMessage + result.chatBotMessage;
                         var reply = document.getElementById("messageResult");
                         reply.value = resultMessage;
+
+                        if (result.jobCode != 0) {
+                            externalApiCall(result.jobCode);
+                        }
+
                         document.form1.messageResult.focus();
                         document.form1.userMessage.focus();
                     }
@@ -49,6 +54,29 @@
 
             });
             document.form1.userMessage.value = "";
+        }
+
+        function externalApiCall(code) {
+            console.log("code: " + code);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "jobInfo",
+                data: JSON.stringify(code),
+                success: [
+                    function(result) {
+                        var apiResult = document.getElementById("apiResult");
+                        apiResult.value += result;
+                        console.log(result);
+                    }
+                ],
+                error: [
+                    function(request){
+                        alert("userMessage:"+request.responseText);
+                    }
+                ]
+            });
         }
     </script>
 </head>
@@ -93,6 +121,7 @@
             </tr>
         </table>
         <hr>
+        <textarea id="apiResult" name="apiResult" height="2000"></textarea>
     </div>
 </form>
 </body>

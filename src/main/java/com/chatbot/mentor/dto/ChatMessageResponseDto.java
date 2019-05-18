@@ -7,6 +7,7 @@ public class ChatMessageResponseDto {
     private String userMessage;
     private String chatBotMessage;
     private String messageHistory;
+    private int jobCode;
 
     public ChatMessageResponseDto() {
     }
@@ -15,6 +16,13 @@ public class ChatMessageResponseDto {
         this.userMessage = userMessage;
         this.chatBotMessage = chatBotMessage;
         this.messageHistory = messageHistory;
+    }
+
+    public ChatMessageResponseDto(String userMessage, String chatBotMessage, String messageHistory, int jobCode) {
+        this.userMessage = userMessage;
+        this.chatBotMessage = chatBotMessage;
+        this.messageHistory = messageHistory;
+        this.jobCode = jobCode;
     }
 
     public String getUserMessage() {
@@ -39,5 +47,13 @@ public class ChatMessageResponseDto {
 
     public void setMessageHistory(String messageHistory) {
         this.messageHistory = messageHistory;
+    }
+
+    public int getJobCode() {
+        return jobCode;
+    }
+
+    public void setJobCode(int jobCode) {
+        this.jobCode = jobCode;
     }
 }
