@@ -66,6 +66,8 @@
                 data: JSON.stringify(code),
                 success: [
                     function(result) {
+                        var apiResult = document.getElementById("apiResult");
+                        apiResult.value += result;
                         console.log(result);
                     }
                 ],

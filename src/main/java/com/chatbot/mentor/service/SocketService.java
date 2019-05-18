@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author junho.park
@@ -17,11 +19,8 @@ public class SocketService {
     private static final char NULL_CHAR = (char) 0;
     private static final int DEFAULT_CHAT_SCRIPT_PORT = 1024;
     private static final String DEFAULT_HOST = "localhost";
-
-    // TODO 직업 코드 정규식 설정부분1
-    private static final String JOB_CODE_STRING_TEMP = "CODE 105,098";
-    // TODO 직업 코드 정규식 설정부분2
-    private static final int JOB_CODE_TEMP = 105098;
+    private static final Pattern CODE_PATTERN = Pattern.compile("[CODE]");
+    private static final int REDUNDANT_SIZE_CODE_PATTERN = 5;
 
     public BotMessage getBotMessage(String message, String userName) {
         verifyChatArguments(message, userName);
@@ -30,7 +29,8 @@ public class SocketService {
         String returnedMessage = getBotMessageUsingChatScriptProtocol(userName + NULL_CHAR + NULL_CHAR + message + NULL_CHAR);
 
         if (checkIfExternalApiCode(returnedMessage)) {
-            return new BotMessage("버튼을 누르세요", true, JOB_CODE_TEMP);
+            String code = returnedMessage.substring(REDUNDANT_SIZE_CODE_PATTERN).replaceAll(",", "");
+            return new BotMessage("정보를 보여줄게!", true, Integer.parseInt(code));
         }
 
         return new BotMessage(returnedMessage, false);
@@ -65,6 +65,7 @@ public class SocketService {
     }
 
     private boolean checkIfExternalApiCode(String message) {
-        return message.equals(JOB_CODE_STRING_TEMP);
+        Matcher matcher = CODE_PATTERN.matcher(message);
+        return matcher.find();
     }
 }
