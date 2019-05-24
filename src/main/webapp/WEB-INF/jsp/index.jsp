@@ -74,6 +74,8 @@
                         apiResult.value += result;
                         console.log(result);
 
+                        $("#list_table_json tbody tr").remove();
+
                         var event_data = "";
                         $.each(result, function(index, value) {
                             event_data += '<tr>';
