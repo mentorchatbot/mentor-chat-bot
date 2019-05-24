@@ -7,6 +7,10 @@
     <title>Mentor ChatBot</title>
     <script src="/webjars/jquery/2.1.3/dist/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <style type="text/css">
         .bgcolor1{background-color:#3b5998}
         .bgcolor2{background-color:#eceff5}
@@ -69,6 +73,21 @@
                         var apiResult = document.getElementById("apiResult");
                         apiResult.value += result;
                         console.log(result);
+
+                        var event_data = "";
+                        $.each(result, function(index, value) {
+                            event_data += '<tr>';
+                            event_data += '<td>'+value.job+'</td>';
+                            event_data += '<td>'+value.equalEmployment+'</td>';
+                            event_data += '<td>'+value.possibility+'</td>';
+                            event_data += '<td>'+value.profession+'</td>';
+                            event_data += '<td>'+value.prospect+'</td>';
+                            event_data += '<td>'+value.salary+'</td>';
+                            event_data += '<td>'+value.similarJob+'</td>';
+                            event_data += '<td>'+value.summary+'</td>';
+                            event_data += '</tr>';
+                        });
+                        $("#list_table_json").append(event_data);
                     }
                 ],
                 error: [
@@ -124,6 +143,21 @@
         <textarea id="apiResult" name="apiResult" height="2000"></textarea>
     </div>
 </form>
+
+<table class="table" id="list_table_json">
+    <thead>
+    <tr>
+        <th>직업명</th>
+        <th>고용평등</th>
+        <th>발전가능</th>
+        <th>직업분야</th>
+        <th>전망</th>
+        <th>연봉</th>
+        <th>직업상세정보</th>
+    </tr>
+    </thead>
+</table>
+
 </body>
 </html>
 
