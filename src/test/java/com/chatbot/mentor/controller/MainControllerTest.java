@@ -27,7 +27,6 @@ public class MainControllerTest {
     public void initMain() throws Exception {
         this.mvc.perform(get("/")).andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(view().name("index"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/index.jsp"));
+                .andExpect(view().name("index"));
     }
 }
